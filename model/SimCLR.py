@@ -80,6 +80,7 @@ class NT_Xent(nn.Module):
 
         z = torch.cat((z_i, z_j), dim=0)
 
+
         sim = self.similarity_f(z.unsqueeze(1), z.unsqueeze(0)) / self.temperature
 
         sim_i_j = torch.diag(sim, self.batch_size * self.world_size)
