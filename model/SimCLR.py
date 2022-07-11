@@ -46,4 +46,4 @@ class SimCLRAugmentation:
         ])
 
     def __call__(self, x):
-        return self.train_transform(x)
+        return self.train_transform(x), self.train_transform(x)
