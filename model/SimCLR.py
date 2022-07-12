@@ -1,3 +1,5 @@
+
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -52,6 +54,11 @@ class SimCLRAugmentation:
         return self.train_transform(x), self.train_transform(x)
 
 class NT_Xent(nn.Module):
+
+    """
+    Adopted from https://github.com/Spijkervet/SimCLR.
+    """
+
     def __init__(self, batch_size, temperature, world_size):
         super(NT_Xent, self).__init__()
         self.batch_size = batch_size
