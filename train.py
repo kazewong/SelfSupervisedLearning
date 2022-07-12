@@ -7,7 +7,7 @@ from model.SimCLR import SimCLR, SimCLRAugmentation, NT_Xent
 batch_size = 256
 
 SimCLRAug = SimCLRAugmentation(16)
-train_loader, test_loader = load_cifar(batch_size=batch_size, transform=SimCLRAug)
+train_loader, test_loader = load_cifar(batch_size=batch_size, num_workers=16, transform=SimCLRAug)
 
 model = SimCLR(100,100).cuda()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
