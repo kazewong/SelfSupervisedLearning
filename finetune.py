@@ -3,6 +3,8 @@ import torch.nn as nn
 from dataloader.cifar import load_cifar
 from model.SimCLR import SimCLR, SimCLRAugmentation, NT_Xent
 
+
+torch.manual_seed(10392911902329591018)
 batch_size = 64
 
 train_loader, test_loader = load_cifar(batch_size=batch_size, num_workers=16)
@@ -87,3 +89,8 @@ for i in range(10):
     y_finetune.append(finetune())
     print('freshtraining')
     y_freshtrain.append(freshtrain())
+
+for i in range(10):
+    y_finetune_correct = torch.where(test_batch[1] == y_finetune[i].cpu())[0].size(0)
+    y_freshtrain_correct = torch.where(test_batch[1] == y_freshtrain[i].cpu())[0].size(0)
+    print(y_finetune_correct, y_freshtrain_correct)
