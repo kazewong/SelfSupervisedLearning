@@ -2,14 +2,15 @@ import torch
 import torch.nn as nn
 
 from dataloader.cifar import load_cifar
+from dataloader.mnist import load_mnist
 from model.SimCLR import SimCLR, SimCLRAugmentation, NT_Xent
 
-batch_size = 256
+batch_size = 128
 
-SimCLRAug = SimCLRAugmentation(16)
+SimCLRAug = SimCLRAugmentation(24)
 train_loader, test_loader = load_cifar(batch_size=batch_size, num_workers=16, transform=SimCLRAug)
 
-model = SimCLR(100,100).cuda()
+model = SimCLR(10,100).cuda()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 loss = NT_Xent(batch_size=batch_size, temperature=0.5, world_size=1)
 
