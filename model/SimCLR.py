@@ -42,12 +42,10 @@ class SimCLRAugmentation:
             transforms.RandomVerticalFlip(),
             transforms.RandomApply([color_jitter], p=0.8),
             transforms.RandomGrayscale(p=0.2),
-            transforms.ToTensor(),
         ])
 
         self.test_transform = transforms.Compose([
             transforms.Resize(size),
-            transforms.ToTensor(),
         ])
 
     def __call__(self, x):

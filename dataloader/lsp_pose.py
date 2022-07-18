@@ -6,10 +6,9 @@ from torchvision.io import read_image
 from torchvision import transforms
 
 
-default_transforms = transforms.Resize([200,200])
 class LeedsSportsPoseDataset(Dataset):
 
-    def __init__(self, root, transform = default_transforms):
+    def __init__(self, root, transform = transforms.Resize([200,200])):
         self.image_directory = root+'/images/'
         annotation_file = root+'/joints.mat'
 
@@ -23,12 +22,12 @@ class LeedsSportsPoseDataset(Dataset):
 
     def __getitem__(self, idx):
         img_path = self.image_directory+self.file_list[idx]
-        image = read_image(img_path)
+        image = read_image(img_path).float()
         if self.transform:
             image = self.transform(image)
         return image, self.annotation['joints'][:,:,idx]
 
-def load_lsp(root: str, batch_size: int, num_workers: int, transform: transforms = default_transforms):
+def load_lsp(root: str, batch_size: int, num_workers: int, transform: transforms = transforms.Resize([200,200])):
 
     dataset = LeedsSportsPoseDataset(root, transform)
     train_data, test_data = random_split(dataset, [int(len(dataset)*0.8), int(len(dataset)-len(dataset)*0.8)])
